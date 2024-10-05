@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeRed Applicants</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">  
+    <style>
+        * {
+            margin: 0; /* Fixed margin */
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            height: 100%;
+            background-color: #f5f7fa;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 20%;
+            height: auto;
+            background-color: #e3e6f3;
+            display: flex;
+            flex-direction: column;
+            padding: 30px;
+            border-right: 1px solid #ccc;
+        }
+
+        .logo h1 {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .logo .red {
+            color: red;
+        }
+
+        .sidebar nav ul {
+            list-style: none;
+            margin-top: 40px;    
+        }
+
+        .sidebar nav ul li {
+            margin-bottom: 30px;
+        }
+
+        .sidebar nav ul li a {
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 500;
+            color: black;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+            gap: 10px;
+        }
+            
+        .sidebar nav ul li a:hover {
+            background-color: #d0d3e1;
+        }
+
+        .sidebar nav ul li a.active {
+            background-color: white;
+            color: red;
+        }
+
+        /* Profile Section */
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: auto; /* Pushes the profile section to the bottom */
+        }
+
+        .profile img {
+            width: 50px;
+            border-radius: 50%;
+        }
+
+        .profile-info span {
+            font-weight: bold;
+        }
+
+        .profile-info p {
+            color: gray;
+        }
+
+        /* Main Content Styling */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            background-color: #f5f7fa;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 32px; /* Increase font size */
+            font-weight: 600;
+            color: #333;
+            margin-top: 50px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            margin-left: 300px; /* Push search bar to the rightmost corner */
+            width: 500px;
+            height: 50px; /* Set a fixed width for the search bar */
+        }
+
+        .search-bar input {
+            padding: 5px; /* Smaller padding */
+            border: 1px solid #ccc;
+            font-size: 14px; /* Smaller font size */
+            width: 80%; /* Set a percentage width for the input */
+            height: 50px;
+            margin-top: 50px;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        .applicants-list {
+            background-color: white;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+            margin-left: 0; /* Align to the left */
+            width: 988px;
+            height: 1233px; /* Set to 100% or a specific width as needed */
+            margin-top: px;
+        }
+
+        /* Header for the applicant list */
+        .applicants-header {
+            display: flex;
+            justify-content: space-between; /* Align items properly */
+            font-weight: bold;
+            padding: 10px 0; /* Keep padding but adjust if needed */
+            border-bottom: 2px solid #007bff; /* Divider for header */
+        }
+
+        .applicant {
+            display: flex;
+            justify-content: space-between; /* Align items properly */
+            padding: 10px 0; /* Increase padding for applicants */
+            border-bottom: 1px solid #e0e0e0;
+            font-size: larger;
+            margin-bottom: 24px;
+            cursor: pointer; /* Pointer cursor on hover */
+        }
+
+        .applicants-header span,
+        .applicant span {
+            flex: 1; /* Equal space for both columns */
+            margin-left: 10px; /* Align text to the left */
+            font-size: larger;
+        }
+
+        .score {
+            font-weight: bold;
+        }
+
+        .green {
+            color: green;
+        }
+
+        .red {
+            color: red;
+        }
+
+        /* Styling for selected applicant row */
+        .applicant.selected {
+            border: 2px solid #007bff; /* Blue border */
+            border-radius: 5px;
+            background-color: #f0f8ff; /* Light blue background */
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0); /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>Code<span class="red">Red</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active"><i class="fas fa-home"></i> Home</a></li>
+                    <div class="divider"></div>
+                    <li><a href="#"><i class="fas fa-plus-circle"></i> Create Role</a></li>
+                    <div class="divider"></div>
+                    <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                    <div class="divider"></div>
+                    <li><a href="#"><i class="fas fa-history"></i> History</a></li>
+                </ul>
+            </nav>
+            <div class="profile">
+                <img src="https://via.placeholder.com/50" alt="Profile Picture">
+                <div class="profile-info">
+                    <span>Linkesh VB</span>
+                    <p>Admin</p>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Content Section -->
+        <main class="main-content">
+            <section class="applicants-list">
+                <header class="header">
+                    <h1>Applicants</h1>
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search...">
+                    </div>
+                </header>
+                <div class="applicants-header">
+                    <span>Applicant Name</span>
+                    <span>Score</span>
+                </div>
+                <div class="applicant" data-name="Rahul" data-score="99.12">
+                    <span>Rahul</span>
+                    <span class="score green">99.12</span>
+                </div>
+                <div class="applicant" data-name="Madhan" data-score="99.01">
+                    <span>Madhan</span>
+                    <span class="score green">99.01</span>
+                </div>
+                <div class="applicant" data-name="Priya" data-score="98.56">
+                    <span>Priya</span>
+                    <span class="score green">98.56</span>
+                </div>
+                <div class="applicant" data-name="Thiran Sudhan" data-score="10.17">
+                    <span>Thiran Sudhan</span>
+                    <span class="score red">10.17</span>
+                </div>
+                <div class="applicant" data-name="Dora" data-score="9.12">
+                    <span>Dora</span>
+                    <span class="score red">9.12</span>
+                </div>
+                <div class="applicant" data-name="Jiya" data-score="9.01">
+                    <span>Jiya</span>
+                    <span class="score red">9.01</span>
+                </div>
+                <div class="applicant" data-name="Mohan" data-score="9.01">
+                    <span>Mohan</span>
+                    <span class="score red">9.01</span>
+                </div>
+                <div class="applicant" data-name="Asha" data-score="9.0">
+                    <span>Asha</span>
+                    <span class="score red">9.0</span>
+                </div>
+                <div class="applicant" data-name="Kavi" data-score="8.0">
+                    <span>Kavi</span>
+                    <span class="score red">8.0</span>
+                </div>
+                <div class="applicant" data-name="Arun" data-score="9.5">
+                    <span>Arun</span>
+                    <span class="score green">9.5</span>
+                </div>
+                <div class="applicant" data-name="Bala" data-score="8.5">
+                    <span>Bala</span>
+                    <span class="score red">8.5</span>
+                </div>
+                <div class="applicant" data-name="Meera" data-score="10.5">
+                    <span>Meera</span>
+                    <span class="score green">10.5</span>
+                </div>
+                <div class="applicant" data-name="Kavi" data-score="12.5">
+                    <span>Kavi</span>
+                    <span class="score green">12.5</span>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script>
+        // JavaScript for applicant selection
+        const applicants = document.querySelectorAll('.applicant');
+        applicants.forEach(applicant => {
+            applicant.addEventListener('click', () => {
+                applicants.forEach(a => a.classList.remove('selected'));
+                applicant.classList.add('selected');
+                alert(`Selected Applicant: ${applicant.dataset.name}, Score: ${applicant.dataset.score}`);
+            });
+        });
+
+        // JavaScript for search functionality
+        const searchInput = document.querySelector('.search-bar input');
+        searchInput.addEventListener('input', function() {
+            const filter = searchInput.value.toLowerCase();
+            applicants.forEach(applicant => {
+                const name = applicant.dataset.name.toLowerCase();
+                if (name.includes(filter)) {
+                    applicant.style.display = '';
+                } else {
+                    applicant.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

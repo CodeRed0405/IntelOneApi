@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Records</title>
+    <style>
+        .record {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Candidate Records</h1>
+
+    {% for record in records %}
+        <div class="record">
+            <p><strong>Full Name:</strong> {{ record.full_name }}</p>
+            <p><strong>Email:</strong> {{ record.email }}</p>
+            <p><strong>Phone:</strong> {{ record.phone }}</p>
+            <p><strong>Job Title:</strong> {{ record.job_title }}</p>
+            <p><strong>Job Description:</strong> {{ record.job_description }}</p>
+            <p><strong>GitHub URL:</strong> <a href="{{ record.github_url }}" target="_blank">{{ record.github_url }}</a></p>
+            <p><strong>Resume:</strong> <a href="{{ record.resume.url }}" target="_blank">Download Resume</a></p>
+            <p><strong>LinkedIn URL:</strong> <a href="{{ record.linkedin_url }}" target="_blank">{{ record.linkedin_url }}</a></p>
+        </div>
+    {% empty %}
+        <p>No records found.</p>
+    {% endfor %}
+</body>
+</html>

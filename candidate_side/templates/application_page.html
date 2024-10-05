@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Candidate Details Form</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      width: 100%;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      display: block;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+    input[type="file"] {
+      padding: 5px;
+    }
+    input[type="url"] {
+      font-style: italic;
+    }
+    button {
+      padding: 10px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Candidate Details Form</h2>
+  <form id="candidateForm" method="POST" action="{% url 'submit_form' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <!-- Personal Details -->
+    <div class="form-group">
+      <label for="fullName">Full Name</label>
+      <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+    </div>
+    
+    <!-- Job Information -->
+    <div class="form-group">
+      <label for="jobTitle">Job Role</label>
+      <input type="text" id="jobTitle" name="jobTitle" placeholder="Enter the Job Role" required>
+    </div>
+    <div class="form-group">
+      <label for="jobDescription">Summary</label>
+      <textarea id="jobDescription" name="jobDescription" rows="4" placeholder="A small summary about yourself with relevance to the job role chosen" required></textarea>
+    </div>
+
+    <!-- Resume Upload -->
+    <div class="form-group">
+      <label for="resume">Upload Resume (PDF only)</label>
+      <input type="file" id="resume" name="resume" accept=".pdf" required>
+    </div>
+
+    <!-- URLs -->
+    <div class="form-group">
+      <label for="github">GitHub URL</label>
+      <input type="url" id="github" name="github" placeholder="https://github.com/username" required>
+    </div>
+    <div class="form-group">
+      <label for="linkedin">LinkedIn URL</label>
+      <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/username" required>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit">Submit</button>
+  </form>
+</div>
+<!--script part removed-->
+</body>
+</html>

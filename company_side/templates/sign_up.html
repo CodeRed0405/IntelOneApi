@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Light Blue Page with Eclipse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet"> <!-- Link to Poppins font -->
+    <style>
+        body {
+            background-color: rgb(129, 139, 243);
+            margin: 0;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            font-family: "Poppins", sans-serif; /* Set default font */
+        }
+
+        .ellipse {
+            position: absolute;
+            width: 1941px;
+            height: 1439px;
+            top: -180px;
+            left: -900px;
+            background: rgba(229, 224, 255, 1);
+            border-radius: 50%;
+            opacity: 1;
+        }
+
+        .login-box {
+            position: absolute;
+            width: 600px;
+            height: 480px;
+            top: 160px;
+            left: 850px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            box-sizing: border-box;
+            opacity: 1;
+            font-size: 25px;
+            font: "Poppins";
+            font-family: normal;
+            font-weight: 800;
+        }
+
+        .login-box h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 32px;
+            font-family: "Poppins";
+            font-weight: 500px;
+            font-style: normal;
+            color: #697090;
+        }
+
+        .login-box input[type="text"], .login-box input[type="password"] {
+            width: 100%;
+            padding: 15px; /* Adjusted padding */
+            margin: 10px 0 20px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: "Poppins"; /* Set the font to Poppins */
+            font-size: 20px; /* Increased font size for username and password fields */
+        }
+
+        .login-box input[type="submit"] {
+            width: 150px;
+            padding: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            float: right;
+            font-family: "Poppins", sans-serif; /* Set the font to Poppins */
+            font-size: 20px; /* Increased font size for login button */
+        }
+
+        .login-box input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .box {
+            position: fixed;
+            bottom: 101px;
+            right: 0px;
+            width: 100px;
+            height: 90px;
+        }
+
+        .box img {
+            width: 100%;
+            height: auto;
+        }
+
+        .image {
+            width: 670px;
+            height: auto; /* Allow height to adjust automatically */
+        }
+
+        .business-team {
+            position: fixed;
+            width: 700px; /* Slightly increased size */
+            height: auto; /* Allow height to adjust automatically */
+            top: 0px; /* Move up */
+            left: 100px;
+            object-fit: cover;
+        }
+
+        .label {
+            width: 500px;
+            height: 132px;
+        }
+
+        .text-wrapper {
+            position: fixed;
+            width: 400px;
+            top: 0;
+            left: 50px; /* Move to the right */
+            font-family: "Poppins";
+            font-weight: 800; /* Set to bold weight */
+            color: #313a5b;
+            font-size: 96px;
+            letter-spacing: 0;
+            align-content: center;
+            line-height: 149.925%;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="ellipse"></div>
+
+    <!-- Login Box -->
+    <div class="login-box">
+        <h2>Company Login</h2>
+        <form id="loginForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <input type="submit" value="Login">
+        </form>
+    </div>
+
+    <!-- Image Box -->
+    <div class="box">
+        <img class="plant-right" src="templates\img\images-removebg-preview.png" alt="plant" />
+    </div>
+
+    <div class="image">
+        <img class="business-team" src="https://img.freepik.com/free-photo/colorful-design-with-spiral-design_188544-9588.jpg" alt="business team" />
+    </div>
+
+    <div class="label">
+        <div class="text-wrapper">CODERED</div>
+    </div>
+
+    <script>
+        // Functionality to handle form submission
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form from submitting normally
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            if (username === "" || password === "") {
+                alert("Please enter both username and password."); // Validate inputs
+            } else {
+                alert(`Welcome, ${username}! You have successfully logged in.`); // Successful login message
+            }
+        });
+
+        // Dynamic movement for the ellipse element for added animation effect
+        document.addEventListener("mousemove", function(e) {
+            const ellipse = document.querySelector(".ellipse");
+            const x = (window.innerWidth - e.pageX) / 90;
+            const y = (window.innerHeight - e.pageY) / 90;
+            ellipse.style.transform = `translate(${x}px, ${y}px)`; // Move the ellipse element slightly based on mouse position
+        });
+    </script>
+</body>
+</html>

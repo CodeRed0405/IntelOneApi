@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Role Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">  
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            height: 100%;
+            background-color: #f5f7fa;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 20%;
+            height: 100vh;
+            background-color: #e3e6f3;
+            display: flex;
+            flex-direction: column;
+            padding: 30px;
+            border-right: 1px solid #ccc;
+        }
+
+        .logo h1 {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .logo .red {
+            color: red;
+        }
+
+        .sidebar nav ul {
+            list-style: none;
+            margin-top: 40px;    
+        }
+
+        .sidebar nav ul li {
+            margin-bottom: 30px;
+        }
+
+        .sidebar nav ul li a {
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 500;
+            color: black;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+            gap: 10px;
+        }
+            
+        .sidebar nav ul li a:hover {
+            background-color: #d0d3e1;
+        }
+
+        .sidebar nav ul li a.active {
+            background-color: white;
+            color: red;
+        }
+
+        /* Profile Section */
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: auto; 
+        }
+
+        .profile img {
+            width: 50px;
+            border-radius: 50%;
+        }
+
+        .profile-info span {
+            font-weight: bold;
+        }
+
+        .profile-info p {
+            color: gray;
+        }
+
+        .main-content {
+            padding: 20px;
+            width: 988px;
+            height: 933px;
+        }
+
+        .role-form {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+            margin-top: 60px;
+        }
+
+        .role-form h2 {
+            margin-bottom: 20px;
+            text-align: left; 
+            font-size: 24px; 
+            color: rgba(5, 0, 78, 1);
+        }
+
+        .role-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .role-form input, .role-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .role-form input {
+            height: 50px;
+        }
+
+        .role-form textarea {
+            height: 150px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .clear-btn, .submit-btn {
+            padding: 15px 30px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .clear-btn {
+            background-color: rgba(0, 0, 0, 1);
+            color: #fff;
+            margin-right: 10px;
+        }
+
+        .submit-btn {
+            background-color: rgba(0, 0, 0, 1);
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>Code<span class="red">Red</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                    <div class="divider"></div>
+                    <li><a href="#" class="active"><i class="fas fa-plus-circle"></i> Create Role</a></li>
+                    <div class="divider"></div>
+                    <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                    <div class="divider"></div>
+                    <li><a href="#"><i class="fas fa-history"></i> History</a></li>
+                </ul>
+            </nav>
+            <div class="profile">
+                <img src="https://via.placeholder.com/50" alt="Profile Picture">
+                <div class="profile-info">
+                    <span>Linkesh VB</span>
+                    <p>Admin</p>
+                </div>
+            </div>
+        </aside>
+        <main class="main-content">
+            <form class="role-form">
+                <h2>New Role</h2>
+                <label for="role-name">Role Name</label>
+                <input type="text" id="role-name" placeholder="Enter role name">
+
+                <label for="role-description">Role Description</label>
+                <textarea id="role-description" rows="5" placeholder="Enter role description"></textarea>
+
+                <label for="additional-info">Additional info</label>
+                <textarea id="additional-info" rows="3" placeholder="Enter additional info"></textarea>
+
+                <div class="buttons">
+                    <button type="reset" class="clear-btn">Clear form</button>
+                    <button type="button" class="submit-btn" onclick="handleSubmit()">Submit</button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <script>
+        // Handle form submission
+        function handleSubmit() {
+            // Get form values
+            const roleName = document.getElementById('role-name').value;
+            const roleDescription = document.getElementById('role-description').value;
+            const additionalInfo = document.getElementById('additional-info').value;
+
+            // Check if required fields are filled
+            if (roleName.trim() === '' || roleDescription.trim() === '') {
+                alert('Please fill in the required fields: Role Name and Role Description.');
+                return;
+            }
+
+            // Display form data in console (you can replace this with an actual submission process)
+            console.log('Role Name:', roleName);
+            console.log('Role Description:', roleDescription);
+            console.log('Additional Info:', additionalInfo);
+
+            // Alert the user and reset form
+            alert('Form submitted successfully!');
+            document.querySelector('.role-form').reset();
+        }
+    </script>
+</body>
+</html>
